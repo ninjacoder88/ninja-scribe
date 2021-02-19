@@ -1,0 +1,22 @@
+name: Continuous Deployment
+
+on:
+  workflow_run:
+    workflows: ["Continuous Integration"]
+    branches: [main]
+    types: 
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build ./src-dotnet -t masterpassword
+    - name: Log into registry
+      run: echo "${{ secrets.nsc_key }}" | docker login ninjasoftware.azurecr.io -u ninjasoftware --password-stdin
+    - name: Push the docker image
+      run: |
+        docker tag masterpassword ninjasoftware.azurecr.io/masterpassword
+        docker push ninjasoftware.azurecr.io/masterpassword

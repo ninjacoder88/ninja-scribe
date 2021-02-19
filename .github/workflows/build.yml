@@ -1,0 +1,23 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build with .NET 5
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Install dependencies
+      run: dotnet restore ./src/NinjaScribe/NinjaScribe.csproj
+    - name: Build
+      run: dotnet build ./src/NinjaScribe/NinjaScribe.csproj --configuration Release --no-restore
+    #- name: Test
+      #run: dotnet test --no-restore --verbosity normal
