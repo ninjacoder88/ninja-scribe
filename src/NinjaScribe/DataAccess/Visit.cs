@@ -13,6 +13,8 @@ namespace NinjaScribe.DataAccess
 
         public string LocalIpAddress { get; set; }
 
+        public string ForwardedIpAddresses { get; set; }
+
         public string UserAgent { get; set; }
 
         public string Location { get; set; }

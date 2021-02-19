@@ -36,6 +36,7 @@ namespace NinjaScribe.Controllers
                 var remoteIpAddress = Request?.HttpContext?.Connection?.RemoteIpAddress?.ToString();
                 var localIpAddress = Request?.HttpContext?.Connection?.LocalIpAddress?.ToString();
                 var userAgent = Request?.Headers["User-Agent"].ToString();
+                var xforwardedFor = Request?.Headers["X-Forwarded-For"].ToString();
                 var location = request.Location;
                 var visitTime = DateTimeOffset.Now;
 
@@ -54,6 +55,7 @@ namespace NinjaScribe.Controllers
                     LocalIpAddress = localIpAddress,
                     Location = location,
                     RemoteIpAddress = remoteIpAddress,
+                    ForwardedIpAddresses = xforwardedFor,
                     UserAgent = userAgent,
                     VisitTime = visitTime,
                     VisitTimeString = visitTime.ToString("u")
