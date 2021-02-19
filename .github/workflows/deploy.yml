@@ -13,10 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build ./src-dotnet -t masterpassword
+      run: docker build ./src -t ninjascribe
     - name: Log into registry
       run: echo "${{ secrets.nsc_key }}" | docker login ninjasoftware.azurecr.io -u ninjasoftware --password-stdin
     - name: Push the docker image
       run: |
-        docker tag masterpassword ninjasoftware.azurecr.io/masterpassword
-        docker push ninjasoftware.azurecr.io/masterpassword
+        docker tag ninjascribe ninjasoftware.azurecr.io/ninjascribe
+        docker push ninjasoftware.azurecr.io/ninjascribe
